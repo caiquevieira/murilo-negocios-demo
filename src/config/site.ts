@@ -52,6 +52,10 @@ export const site = {
 
   credits: { name: "Underline Lab", url: "https://underlinelab.com.br" },
 
+  // Planilha do Google com o catálogo e a tabela de troca (o ID fica no link: /spreadsheets/d/<ID>/edit).
+  // Vazio = o site usa o catálogo de src/data/products.ts.
+  catalogSheetId: "",
+
   // Medição de conversão. Cole os IDs quando tiver; vazio = script não é carregado.
   analytics: {
     ga4Id: "", // ex.: "G-XXXXXXXXXX"

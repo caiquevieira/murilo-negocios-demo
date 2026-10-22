@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Inter } from "next/font/google";
+import { CatalogProvider } from "@/components/CatalogProvider";
 import { Analytics } from "@/components/layout/Analytics";
 import { Footer } from "@/components/layout/Footer";
 import { GlobalNav } from "@/components/layout/GlobalNav";
@@ -64,12 +65,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" className={`${inter.variable} ${cinzel.variable}`}>
       <body>
-        <GlobalNav />
-        <main>{children}</main>
-        <Footer />
-        <MobileStickyBar />
-        <Analytics />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <CatalogProvider>
+          <GlobalNav />
+          <main>{children}</main>
+          <Footer />
+          <MobileStickyBar />
+          <Analytics />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        </CatalogProvider>
       </body>
     </html>
   );

@@ -2,7 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { categories, products, type Category } from "@/data/products";
+import { categories, type Category } from "@/data/products";
+import { useCatalog } from "./CatalogProvider";
 import { ProductCard } from "./ProductCard";
 import { SegmentedControl } from "./ui/Selectors";
 
@@ -19,6 +20,7 @@ export function Showcase({
   showFilters?: boolean;
 }) {
   const [filter, setFilter] = useState<Filter>(initial);
+  const { products } = useCatalog();
   const options = only ? categories.filter((c) => c.id === "todos" || only.includes(c.id as Category)) : categories;
   const list = products.filter(
     (p) => (only ? only.includes(p.category) : true) && (filter === "todos" || p.category === filter),

@@ -3,14 +3,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, Repeat2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { products } from "@/data/products";
 import { batteryOptions, conditions, estimateTradeIn, OTHER_MODEL, tradeInModels } from "@/data/tradein";
 import { formatBRL } from "@/lib/format";
 import { otherModelTradeInMessage, tradeInMessage } from "@/lib/whatsapp";
+import { useCatalog } from "./CatalogProvider";
 import { LeadLink } from "./ui/LeadLink";
 import { WhatsAppIcon } from "./ui/icons";
 
-const targets = products.filter((p) => p.condition !== "seminovo");
 
 function Choice({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -56,15 +55,21 @@ export function TradeInSimulator() {
     if (id && tradeInModels.some((t) => t.id === id)) setModel(id);
   }, []);
 
-  const m = tradeInModels.find((t) => t.id === model);
-  const isOther = model === OTHER_MODEL;
+  const { products, tradeValues } = useCatalog();
+  const targets = products.filter((p) => p.condition !== "seminovo");
+  const found = tradeInModels.find((t) => t.id === model);
+  // Valor da aba Troca da planilha; sem valor lá, o modelo vai para avaliação no WhatsApp
+  const m = found && { ...found, base: tradeValues ? tradeValues[found.id] : found.base };
+  const noEstimate = Boolean(m && !m.base);
+  const isOther = model === OTHER_MODEL || noEstimate;
   const b = batteryOptions.find((o) => o.id === battery);
   const c = conditions.find((o) => o.id === condition);
   const ready = m && capacity && b && c && opened !== null && defect !== null;
 
   const estimate = useMemo(
-    () => (ready ? estimateTradeIn(m.base, m.capacities, capacity, c.factor, b.factor, opened!, defect!) : null),
-    [ready, m, capacity, c, b, opened, defect],
+    () => (ready ? estimateTradeIn(m.base!, m.capacities, capacity, c.factor, b.factor, opened!, defect!) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ready, m?.id, m?.base, capacity, c, b, opened, defect],
   );
   const targetProduct = targets.find((p) => p.id === target);
   const targetPrice = targetProduct?.storages[0].price;
@@ -115,14 +120,17 @@ export function TradeInSimulator() {
 
             {isOther && (
               <div className="mt-6 rounded-2xl bg-mist p-5">
-                <p className="text-[15px] font-medium">Sem problema, a gente avalia pelo WhatsApp.</p>
+                <p className="text-[15px] font-medium">
+                  {noEstimate ? `O ${m!.name} é avaliado direto pela equipe.` : "Sem problema, a gente avalia pelo WhatsApp."}
+                </p>
                 <p className="mt-1 text-[14px] text-ink-soft">
                   Mande o modelo, a capacidade e fotos do aparelho que a equipe responde com o valor de entrada.
                 </p>
                 <LeadLink
                   channel="whatsapp"
-                  source="troca-outro-modelo"
-                  message={otherModelTradeInMessage()}
+                  source={noEstimate ? "troca-sem-tabela" : "troca-outro-modelo"}
+                  product={m?.name}
+                  message={noEstimate ? otherModelTradeInMessage(m!.name) : otherModelTradeInMessage()}
                   className="btn btn-whatsapp mt-4 w-full"
                 >
                   <WhatsAppIcon /> Pedir avaliação no WhatsApp
@@ -130,7 +138,7 @@ export function TradeInSimulator() {
               </div>
             )}
 
-            {m && (
+            {m && !isOther && (
               <div className="mt-6">
                 <p className="mb-2 text-[15px] font-medium">Capacidade</p>
                 <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">

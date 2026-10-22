@@ -5,8 +5,9 @@ import Link from "next/link";
 import { ArrowLeftRight, Check, Minus, Repeat2, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { getIphoneModel, iphoneModels, type IphoneModel } from "@/data/iphones";
-import { products } from "@/data/products";
+import { productHref } from "@/lib/catalog";
 import { compareMessage } from "@/lib/whatsapp";
+import { useCatalog } from "./CatalogProvider";
 import { LeadLink } from "./ui/LeadLink";
 import { WhatsAppIcon } from "./ui/icons";
 
@@ -166,6 +167,7 @@ function Value({ v, best }: { v: string | boolean; best: boolean }) {
 
 /** Comparador lado a lado: o iPhone que a pessoa tem x o que quer levar. Dados oficiais da Apple. */
 export function IphoneCompare() {
+  const { products } = useCatalog();
   const [current, setCurrent] = useState(DEFAULT_CURRENT);
   const [target, setTarget] = useState(DEFAULT_TARGET);
 
@@ -281,7 +283,7 @@ export function IphoneCompare() {
             <Repeat2 size={18} /> Simular o valor do meu {cur.name}
           </Link>
           {inStock && (
-            <Link href={`/iphone/${inStock.id}`} className="link-more self-center sm:ml-2">
+            <Link href={productHref(inStock)} className="link-more self-center sm:ml-2">
               Ver preço do {inStock.name} ›
             </Link>
           )}

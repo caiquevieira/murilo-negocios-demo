@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ProductDetail } from "@/components/ProductDetail";
+import { ProductPage as ProductView } from "@/components/ProductPage";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { InstagramBlock } from "@/components/sections/InstagramBlock";
-import { getProduct, lowestPrice, products } from "@/data/products";
-import { formatBRL } from "@/lib/format";
+import { getProduct, products } from "@/data/products";
 
 export function generateStaticParams() {
   return products.map((p) => ({ id: p.id }));
@@ -16,8 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   if (!p) return {};
   const kind = p.condition === "seminovo" ? "seminovo" : p.condition === "cpo" ? "CPO" : "lacrado";
   return {
-    title: `${p.name} ${kind} em Osasco por ${formatBRL(lowestPrice(p))}`,
-    description: `${p.name} ${kind} na loja física do Centro de Osasco. ${p.tagline} Consulte o estoque pelo WhatsApp.`,
+    title: `${p.name} ${kind} em Osasco`,
+    description: `${p.name} ${kind} à pronta entrega na loja física do Centro de Osasco. ${p.tagline}`,
   };
 }
 
@@ -28,7 +27,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   return (
     <>
-      <ProductDetail product={product} />
+      <ProductView id={product.id} />
       <InstagramBlock source={`produto-${product.id}-bloco`} />
       <ClosingCta source={`produto-${product.id}-final`} />
     </>

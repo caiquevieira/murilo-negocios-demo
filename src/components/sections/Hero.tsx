@@ -9,6 +9,7 @@ import { getProduct } from "@/data/products";
 import { asset } from "@/lib/asset";
 import { formatBRL } from "@/lib/format";
 import { productMessage } from "@/lib/whatsapp";
+import { useProduct } from "../CatalogProvider";
 import { LeadLink } from "../ui/LeadLink";
 import { InstagramIcon, WhatsAppIcon } from "../ui/icons";
 import { Logo } from "../ui/Monogram";
@@ -22,10 +23,12 @@ export function Hero() {
   const yFront = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -90]);
   const glow = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
 
-  const flagship = getProduct("iphone-18-pro-max")!;
+  // Preço e cores vêm da planilha; se o 18 Pro Max sair da vitrine, o preço some do destaque
+  const { product: live, ready } = useProduct("iphone-18-pro-max");
+  const flagship = live ?? getProduct("iphone-18-pro-max")!;
   const st = flagship.storages[0];
   const color = flagship.colors[0];
-  const heroImage = flagship.image!;
+  const heroImage = getProduct("iphone-18-pro-max")!.image!;
 
   return (
     <section ref={ref} className="dark relative overflow-hidden bg-night text-white">
@@ -76,13 +79,17 @@ export function Hero() {
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: ready ? 1 : 0, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease }}
-            className="mt-6 text-[17px]"
+            className="mt-6 min-h-[26px] text-[17px]"
           >
-            <span className="text-white/50 line-through">{formatBRL(st.priceFrom!)}</span>{" "}
-            <span className="font-semibold text-white">por {formatBRL(st.price)}</span>{" "}
-            <span className="text-white/60">à vista</span>
+            {live && (
+              <>
+                {st.priceFrom && <span className="text-white/50 line-through">{formatBRL(st.priceFrom)} </span>}
+                <span className="font-semibold text-white">por {formatBRL(st.price)}</span>{" "}
+                <span className="text-white/60">à vista</span>
+              </>
+            )}
           </motion.div>
         </div>
 

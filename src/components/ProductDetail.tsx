@@ -14,7 +14,7 @@ import { InstagramIcon, WhatsAppIcon } from "./ui/icons";
 export function ProductDetail({ product }: { product: Product }) {
   const [colorIdx, setColorIdx] = useState(() => defaultColorIndex(product));
   const [storage, setStorage] = useState(product.storages[0].capacity);
-  const color = product.colors[colorIdx];
+  const color = product.colors[colorIdx] ?? product.colors[0];
   const hasPhoto = Boolean(color.image ?? product.image);
   const st = product.storages.find((s) => s.capacity === storage) ?? product.storages[0];
   const seminovo = product.condition === "seminovo";

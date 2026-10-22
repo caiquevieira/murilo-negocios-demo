@@ -1,4 +1,7 @@
+"use client";
+
 import { discountPercent, formatBRL } from "@/lib/format";
+import { useCatalog } from "../CatalogProvider";
 
 export function PriceTag({
   price,
@@ -11,7 +14,16 @@ export function PriceTag({
   size?: "md" | "lg";
   dark?: boolean;
 }) {
+  const { ready } = useCatalog();
   const off = priceFrom ? discountPercent(priceFrom, price) : 0;
+  if (!ready) {
+    return (
+      <div aria-busy className="space-y-2">
+        <div className={`h-4 w-24 animate-pulse rounded-full ${dark ? "bg-white/10" : "bg-mist"}`} />
+        <div className={`h-7 w-36 animate-pulse rounded-full ${dark ? "bg-white/10" : "bg-mist"}`} />
+      </div>
+    );
+  }
   return (
     <div>
       {priceFrom && (

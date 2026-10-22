@@ -1,11 +1,16 @@
+"use client";
+
 import Link from "next/link";
-import { defaultColorIndex, products } from "@/data/products";
+import { defaultColorIndex } from "@/data/products";
+import { productHref } from "@/lib/catalog";
+import { useCatalog } from "../CatalogProvider";
 import { formatBRL } from "@/lib/format";
 import { ProductVisual } from "../ui/ProductVisual";
 import { Reveal } from "../ui/Reveal";
 
 /** Faixa horizontal "Conheça a linha": todos os modelos novos, com rolagem lateral. */
 export function LineupStrip() {
+  const { products, ready } = useCatalog();
   const lineup = products.filter((p) => p.condition !== "seminovo");
   return (
     <section className="bg-white py-20 md:py-24">
@@ -25,7 +30,7 @@ export function LineupStrip() {
           return (
             <li key={p.id} className="snap-start">
               <Link
-                href={`/iphone/${p.id}`}
+                href={productHref(p)}
                 className="group flex h-full w-[220px] flex-col rounded-[var(--radius-card)] bg-mist p-5 transition hover:bg-[#ededf0]"
               >
                 <ProductVisual
@@ -44,7 +49,7 @@ export function LineupStrip() {
                 <p className="mt-1 text-[14px] text-ink-soft">{p.tagline}</p>
                 <p className="mt-auto pt-4 text-[14px]">
                   <span className="text-ink-mute">{st.capacity} por </span>
-                  <span className="font-semibold">{formatBRL(st.price)}</span>
+                  <span className="font-semibold">{ready ? formatBRL(st.price) : "…"}</span>
                 </p>
               </Link>
             </li>

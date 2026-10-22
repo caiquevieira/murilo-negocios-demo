@@ -15,12 +15,23 @@ npm run publicar:demo   # publica a demo (noindex) no GitHub Pages, branch gh-pa
 
 Demo: https://caiquevieira.github.io/murilo-negocios-demo/
 
+## Catálogo pela planilha (o Murilo edita sozinho)
+
+O catálogo e a tabela do simulador de troca vêm de uma planilha do Google. O site lê a planilha no navegador a cada visita; o que o Murilo muda aparece em poucos minutos, sem build nem deploy.
+
+- ID da planilha: `catalogSheetId` em `src/config/site.ts`. Vazio = usa `src/data/products.ts`.
+- A planilha precisa estar em **Compartilhar › Qualquer pessoa com o link › Leitor** (só leitura; editar continua restrito).
+- Abas lidas: `Catálogo` (colunas na ordem: Mostrar no site, Código, Modelo, Condição, Capacidade, Preço à vista, Preço "de", Cores, Foto, Selo, Frase, Bateria %) e `Troca` (Modelo, Código, Valor de entrada). Não renomear abas nem mudar a ordem das colunas.
+- Linhas com o mesmo Código viram capacidades do mesmo aparelho. Código vazio = aparelho novo, com página em `/iphone/ver/?id=…`.
+- Se a planilha falhar, o site usa a última versão salva no navegador e, sem ela, `products.ts`. Leitura e regras em `src/lib/catalog.ts` e `src/components/CatalogProvider.tsx`.
+- Modelo da planilha gerado a partir do catálogo: `catalogo-murilo-negocios.xlsx` (abas Como usar, Catálogo, Fotos, Troca).
+
 ## Onde editar
 
 | O quê | Arquivo |
 |---|---|
 | WhatsApp, endereço, links do Google (mapa e avaliação), horário, Instagram, IDs de GA4/Pixel, crédito | `src/config/site.ts` |
-| Produtos, preços, cores, seminovos | `src/data/products.ts` |
+| Produtos, preços, cores, seminovos | Planilha do Google (reserva: `src/data/products.ts`) |
 | Valores do simulador de troca | `src/data/tradein.ts` |
 | Especificações do comparador (oficiais da Apple, XR ao Duo) | `src/data/iphones.ts` |
 | Fotos do comparador (uma por modelo, `<id>.webp`) | `public/comparar/` |

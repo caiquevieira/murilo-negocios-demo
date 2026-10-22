@@ -37,7 +37,8 @@ export function tradeInMessage(t: {
   ].join("\n");
 }
 
-export function otherModelTradeInMessage() {
+export function otherModelTradeInMessage(model?: string) {
+  if (model) return `Olá! Quero dar meu ${model} como entrada. Vocês fazem a avaliação?`;
   return `Olá! Quero dar meu aparelho como entrada, mas o modelo não está no simulador do site. Vocês fazem a avaliação? Meu aparelho é: `;
 }
 

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { conditionLabel, defaultColorIndex, type Product } from "@/data/products";
+import { productHref } from "@/lib/catalog";
 import { productMessage } from "@/lib/whatsapp";
 import { LeadLink } from "./ui/LeadLink";
 import { PriceTag } from "./ui/PriceTag";
@@ -13,7 +14,7 @@ import { WhatsAppIcon } from "./ui/icons";
 export function ProductCard({ product }: { product: Product }) {
   const [colorIdx, setColorIdx] = useState(() => defaultColorIndex(product));
   const [storage, setStorage] = useState(product.storages[0].capacity);
-  const color = product.colors[colorIdx];
+  const color = product.colors[colorIdx] ?? product.colors[0];
   const st = product.storages.find((s) => s.capacity === storage) ?? product.storages[0];
   const seminovo = product.condition === "seminovo";
 
@@ -29,7 +30,7 @@ export function ProductCard({ product }: { product: Product }) {
         )}
       </div>
 
-      <Link href={`/iphone/${product.id}`} className="my-6 block" aria-label={`Ver ${product.name}`}>
+      <Link href={productHref(product)} className="my-6 block" aria-label={`Ver ${product.name}`}>
         <ProductVisual
           product={product}
           color={color}
@@ -39,7 +40,7 @@ export function ProductCard({ product }: { product: Product }) {
       </Link>
 
       <h3 className="font-[family-name:var(--font-display)] text-[22px] font-semibold leading-tight">
-        <Link href={`/iphone/${product.id}`} className="hover:text-gold-700">
+        <Link href={productHref(product)} className="hover:text-gold-700">
           {product.name}
         </Link>
       </h3>
@@ -75,7 +76,7 @@ export function ProductCard({ product }: { product: Product }) {
         className="btn btn-whatsapp mt-5 w-full"
       >
         <WhatsAppIcon />
-        Consultar estoque em Osasco
+        Reservar no WhatsApp
       </LeadLink>
     </article>
   );
