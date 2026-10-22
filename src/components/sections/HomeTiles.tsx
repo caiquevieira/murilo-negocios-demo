@@ -129,15 +129,19 @@ export function HomeTiles() {
 
         <Tile
           theme="light"
-          eyebrow="Encomenda"
-          title="Não achou o seu? A gente traz."
-          sub="Qualquer modelo, cor e capacidade. Você escolhe, a gente encomenda."
+          eyebrow="Comparar"
+          title="O seu ou o novo?"
+          sub="Coloque lado a lado o iPhone que você tem e o que quer levar."
           visual={
-            <TileImage src="/produtos/iphone-16-linha.webp" alt="iPhone 16 em cinco cores" />
+            <div className="mt-auto flex h-[260px] w-full items-end justify-center gap-6 md:h-[320px]">
+              <TileImage src="/comparar/iphone-xr.webp" alt="iPhone XR" className="!mt-0 h-[72%] max-w-[200px] flex-1" />
+              <span className="mb-[18%] text-[13px] font-semibold tracking-[0.2em] text-ink-mute">VS</span>
+              <TileImage src="/comparar/iphone-18-pro-max.webp" alt="iPhone 18 Pro Max" className="!mt-0 h-full max-w-[240px] flex-1" />
+            </div>
           }
         >
-          <Link href="/encomenda" className="btn btn-dark btn-sm">
-            Fazer encomenda
+          <Link href="/comparar" className="btn btn-dark btn-sm">
+            Comparar modelos
           </Link>
         </Tile>
 

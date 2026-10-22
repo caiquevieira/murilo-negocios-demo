@@ -56,6 +56,7 @@ const jsonLd = {
       closes: "20:00",
     },
   ],
+  hasMap: site.google.mapsUrl,
   sameAs: [site.instagram.url],
 };
 

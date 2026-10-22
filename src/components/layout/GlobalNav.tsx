@@ -13,7 +13,7 @@ const links = [
   { href: "/iphone", label: "iPhone" },
   { href: "/seminovos", label: "Seminovos" },
   { href: "/troca", label: "Troca" },
-  { href: "/encomenda", label: "Encomenda" },
+  { href: "/comparar", label: "Comparar" },
   { href: "/loja", label: "Loja" },
 ];
 
@@ -32,10 +32,10 @@ export function GlobalNav() {
         aria-label="Principal"
         className="border-b border-white/10 bg-[rgba(22,22,23,0.82)] text-white backdrop-blur-xl backdrop-saturate-150"
       >
-        <div className="wrap flex h-12 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2" aria-label="Murilo Negócios, início">
-            <Monogram className="h-7 w-7" />
-            <span className="hidden font-[family-name:var(--font-serif)] text-[13px] font-semibold tracking-[0.16em] sm:inline">
+        <div className="wrap flex h-14 items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-2.5" aria-label="Murilo Negócios, início">
+            <Monogram priority className="h-10 md:h-9" />
+            <span className="font-[family-name:var(--font-serif)] text-[13px] leading-none font-semibold tracking-[0.14em] md:text-[13px]">
               MURILO <span className="gold-text">NEGÓCIOS</span>
             </span>
           </Link>
@@ -86,7 +86,7 @@ export function GlobalNav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 top-12 bottom-0 bg-[rgba(22,22,23,0.97)] text-white backdrop-blur-xl md:hidden"
+            className="fixed inset-x-0 top-14 bottom-0 bg-[rgba(22,22,23,0.97)] text-white backdrop-blur-xl md:hidden"
           >
             <ul className="wrap pt-6">
               {links.map((l, i) => (

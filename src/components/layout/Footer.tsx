@@ -10,7 +10,7 @@ export function Footer() {
       <div className="wrap">
         <div className="border-b border-line py-8">
           <p>
-            Preços à vista no Pix ou dinheiro, sujeitos à disponibilidade de estoque. Valores de troca são estimativas e
+            Preços à vista no Pix ou dinheiro. Todos os aparelhos da vitrine estão à pronta entrega. Valores de troca são estimativas e
             dependem da avaliação presencial. Aparelhos lacrados com até 1 ano de garantia Apple; CPO = recondicionado
             oficial Apple.
           </p>
@@ -26,7 +26,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li><Link className="hover:underline" href="/iphone">iPhones novos</Link></li>
               <li><Link className="hover:underline" href="/seminovos">Seminovos</Link></li>
-              <li><Link className="hover:underline" href="/encomenda">Encomendar um modelo</Link></li>
+              <li><Link className="hover:underline" href="/comparar">Comparar modelos</Link></li>
               <li><Link className="hover:underline" href="/troca">Seu usado como entrada</Link></li>
             </ul>
           </div>
@@ -45,14 +45,23 @@ export function Footer() {
               <br />
               {site.address.district}, {site.address.city} - {site.address.state}
             </address>
-            <LeadLink
-              channel="whatsapp"
-              source="footer-visita"
-              message={visitMessage()}
-              className="mt-2 inline-block hover:underline"
-            >
-              Agendar visita ›
-            </LeadLink>
+            <ul className="mt-2 space-y-2">
+              <li>
+                <LeadLink channel="whatsapp" source="footer-visita" message={visitMessage()} className="hover:underline">
+                  Agendar visita ›
+                </LeadLink>
+              </li>
+              <li>
+                <LeadLink channel="mapa" source="footer" className="hover:underline">
+                  Ver no Google Maps ›
+                </LeadLink>
+              </li>
+              <li>
+                <LeadLink channel="avaliacao" source="footer" className="hover:underline">
+                  Avaliar no Google ›
+                </LeadLink>
+              </li>
+            </ul>
           </div>
           <div>
             <h3 className="mb-2 font-semibold text-ink">Horário</h3>

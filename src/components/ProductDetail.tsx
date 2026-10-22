@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BadgeCheck, MapPin, Repeat2, ShieldCheck } from "lucide-react";
+import { BadgeCheck, Columns2, MapPin, PackageCheck, Repeat2, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { conditionLabel, defaultColorIndex, type Product } from "@/data/products";
 import { productMessage } from "@/lib/whatsapp";
@@ -84,12 +84,6 @@ export function ProductDetail({ product }: { product: Product }) {
               ) : (
                 <span className="inline-block rounded-2xl border-2 border-gold-500 px-5 py-3 font-semibold">{st.capacity}</span>
               )}
-              <p className="mt-3 text-[14px] text-ink-soft">
-                Precisa de outra capacidade?{" "}
-                <Link href="/encomenda" className="link-more">
-                  A gente encomenda ›
-                </Link>
-              </p>
             </div>
           </div>
 
@@ -101,6 +95,9 @@ export function ProductDetail({ product }: { product: Product }) {
                   <Icon size={18} className="text-gold-700" /> {text}
                 </li>
               ))}
+              <li className="flex items-center gap-2">
+                <PackageCheck size={18} className="text-gold-700" /> Pronta entrega
+              </li>
               <li className="flex items-center gap-2">
                 <MapPin size={18} className="text-gold-700" /> Retirada com horário agendado em Osasco
               </li>
@@ -114,7 +111,7 @@ export function ProductDetail({ product }: { product: Product }) {
               message={productMessage({ name: product.name, capacity: st.capacity, color: color.name, price: st.price, seminovo })}
               className="btn btn-whatsapp mt-6 w-full !min-h-[52px] !text-[17px]"
             >
-              <WhatsAppIcon /> Consultar estoque em Osasco
+              <WhatsAppIcon /> Reservar no WhatsApp
             </LeadLink>
             <LeadLink channel="instagram" source={`produto-${product.id}`} className="btn btn-ghost mt-3 w-full">
               <InstagramIcon /> Ver oferta do dia no Instagram
@@ -131,6 +128,18 @@ export function ProductDetail({ product }: { product: Product }) {
               <span className="text-[14px] text-ink-soft">Simule quanto ele vale de entrada.</span>
             </span>
             <span className="link-more">Simular ›</span>
+          </Link>
+
+          <Link
+            href={`/comparar?para=${product.modelId}`}
+            className="mt-3 flex items-center gap-3 rounded-[var(--radius-card)] border border-line p-5 transition hover:border-gold-500"
+          >
+            <Columns2 className="text-gold-700" />
+            <span className="flex-1">
+              <span className="block font-semibold">Vale a pena trocar?</span>
+              <span className="text-[14px] text-ink-soft">Compare o {product.name} com o seu iPhone.</span>
+            </span>
+            <span className="link-more">Comparar ›</span>
           </Link>
         </div>
       </div>

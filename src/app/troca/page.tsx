@@ -41,7 +41,7 @@ export default function TrocaPage() {
               ))}
             </ol>
             <p className="mt-8 rounded-2xl bg-white/70 p-5 text-[14px] text-ink-soft">
-              O simulador cobre do iPhone 11 ao 16 Pro Max. Tem outro modelo? Mande uma mensagem que a gente avalia.
+              O simulador cobre todos os iPhones do XR ao 18 Pro Max, inclusive o iPhone Duo, do 64GB ao 2TB. Tem outro aparelho? Escolha “Outro modelo” e a gente avalia pelo WhatsApp.
             </p>
           </Reveal>
           <Reveal delay={0.1}>

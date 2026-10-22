@@ -11,7 +11,7 @@ export function genericMessage() {
 
 export function productMessage(p: { name: string; capacity: string; color: string; price: number; seminovo?: boolean }) {
   const kind = p.seminovo ? " seminovo" : "";
-  return `Olá, vi no site de vocês o ${p.name}${kind} ${p.capacity} (cor ${p.color}) por ${formatBRL(p.price)} e gostaria de confirmar a disponibilidade para retirada na loja de Osasco!`;
+  return `Olá, vi no site de vocês o ${p.name}${kind} ${p.capacity} (cor ${p.color}) por ${formatBRL(p.price)} e gostaria de reservar para retirada na loja de Osasco!`;
 }
 
 export function tradeInMessage(t: {
@@ -37,17 +37,12 @@ export function tradeInMessage(t: {
   ].join("\n");
 }
 
-export function orderMessage(o: { model: string; capacity: string; color: string; notes?: string }) {
-  return [
-    `Olá! Gostaria de encomendar um iPhone:`,
-    ``,
-    `Modelo: ${o.model}`,
-    `Capacidade: ${o.capacity}`,
-    `Cor: ${o.color || "Sem preferência"}`,
-    ...(o.notes ? [`Observações: ${o.notes}`] : []),
-    ``,
-    `Qual o prazo e o valor?`,
-  ].join("\n");
+export function otherModelTradeInMessage() {
+  return `Olá! Quero dar meu aparelho como entrada, mas o modelo não está no simulador do site. Vocês fazem a avaliação? Meu aparelho é: `;
+}
+
+export function compareMessage(c: { current: string; target: string }) {
+  return `Olá! Comparei no site o meu ${c.current} com o ${c.target}. Quero saber quanto fica a troca, dando o meu como entrada.`;
 }
 
 export function visitMessage() {

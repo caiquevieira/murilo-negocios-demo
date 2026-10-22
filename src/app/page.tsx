@@ -1,6 +1,7 @@
 import { PromoRibbon } from "@/components/layout/PromoRibbon";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { Hero } from "@/components/sections/Hero";
+import { GoogleReview } from "@/components/sections/GoogleReview";
 import { HomeTiles, RestockTile } from "@/components/sections/HomeTiles";
 import { InstagramBlock } from "@/components/sections/InstagramBlock";
 import { LineupStrip } from "@/components/sections/LineupStrip";
@@ -20,6 +21,7 @@ export default function Home() {
       <InstagramBlock />
       <TeamSection />
       <StoreSection />
+      <GoogleReview />
       <ClosingCta />
     </>
   );

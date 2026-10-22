@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { StoreStatus } from "@/components/StoreStatus";
 import { ClosingCta } from "@/components/sections/ClosingCta";
+import { GoogleReview } from "@/components/sections/GoogleReview";
 import { InstagramBlock } from "@/components/sections/InstagramBlock";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { StoreSection } from "@/components/sections/StoreSection";
@@ -12,7 +13,7 @@ import { visitMessage } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Loja física no Centro de Osasco",
   description:
-    "Loja física no Centro de Osasco. Segunda a domingo, 09h às 20h, com visita agendada pelo WhatsApp.",
+    "Loja física na Av. Hilário Pereira de Souza, 406, Centro de Osasco. Segunda a domingo, 09h às 20h, com visita agendada pelo WhatsApp.",
 };
 
 export default function LojaPage() {
@@ -39,6 +40,7 @@ export default function LojaPage() {
       </PageHeader>
       <StoreSection withPhotos />
       <TeamSection />
+      <GoogleReview source="loja-avaliacao" />
       <InstagramBlock source="loja-instagram" />
       <ClosingCta source="loja-final" />
     </>

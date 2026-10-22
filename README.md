@@ -19,16 +19,19 @@ Demo: https://caiquevieira.github.io/murilo-negocios-demo/
 
 | O quê | Arquivo |
 |---|---|
-| WhatsApp, endereço, horário, Instagram, IDs de GA4/Pixel, crédito | `src/config/site.ts` |
+| WhatsApp, endereço, links do Google (mapa e avaliação), horário, Instagram, IDs de GA4/Pixel, crédito | `src/config/site.ts` |
 | Produtos, preços, cores, seminovos | `src/data/products.ts` |
-| Tabela do simulador de troca e modelos para encomenda | `src/data/tradein.ts` |
+| Valores do simulador de troca | `src/data/tradein.ts` |
+| Especificações do comparador (oficiais da Apple, XR ao Duo) | `src/data/iphones.ts` |
+| Fotos do comparador (uma por modelo, `<id>.webp`) | `public/comparar/` |
+| Logo (fundo transparente) | `public/marca/` |
 | Mensagens prontas do WhatsApp | `src/lib/whatsapp.ts` |
 | Cores, tipografia e botões (tokens) | `src/app/globals.css` |
 | Fotos da loja | `public/store/` |
 
 ## Páginas
 
-`/` home · `/iphone` vitrine com filtros · `/iphone/<id>` página de cada modelo · `/seminovos` · `/troca` (simulador) · `/encomenda` · `/loja`
+`/` home · `/iphone` vitrine com filtros · `/iphone/<id>` página de cada modelo · `/seminovos` · `/troca` (simulador; aceita `?modelo=<id>`) · `/comparar` (comparador; aceita `?de=<id>&para=<id>`) · `/loja`
 
 ## Medição de conversão
 
@@ -38,15 +41,18 @@ Todo link de WhatsApp e Instagram passa pelo `LeadLink` (`src/components/ui/Lead
 |---|---|---|
 | `whatsapp` | `generate_lead` (`method`, `origem`, `item_name`, `value`) | `Contact` |
 | `instagram` | `click_instagram` (`origem`) | — |
+| `avaliacao` | `click_avaliacao` (`origem`) | — |
+| `mapa` | `click_mapa` (`origem`) | — |
 
 Os eventos também vão para o `dataLayer` (`track_whatsapp`, `track_instagram`...). Os scripts de GA4 e Pixel só carregam quando os IDs estão preenchidos em `site.ts`. Em desenvolvimento, cada clique aparece no console como `[track] canal ← origem`.
 
 ## Pendências antes de publicar
 
 - [ ] **Preços dos seminovos** em `products.ts`: são EXEMPLOS, trocar pelo estoque real.
-- [ ] **Tabela de troca** em `tradein.ts`: os valores são EXEMPLOS, confirmar com o Murilo.
+- [ ] **Tabela de troca** em `tradein.ts`: os valores são EXEMPLOS (inclusive XR, XS, SE, mini, 17e, linha 17/18 e Duo), confirmar com o Murilo.
 - [ ] Domínio definitivo (`site.url`).
 - [ ] IDs do GA4 e do Meta Pixel + banner de consentimento (Consent Mode v2).
 - [ ] Foto original da equipe sem o texto por cima (hoje é um recorte do post).
 - [ ] Autorização de uso das fotos (fase de contratação).
-- Endereço público só com a rua (segurança). Visitas apenas com horário agendado pelo WhatsApp, onde o endereço completo é enviado.
+- Endereço completo publicado (Av. Hilário Pereira de Souza, 406), com mapa ligado à ficha do Google. Visitas continuam com horário agendado pelo WhatsApp.
+- Todos os aparelhos da vitrine estão à pronta entrega (não há mais encomenda).

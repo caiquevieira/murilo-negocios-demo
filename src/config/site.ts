@@ -13,12 +13,22 @@ export const site = {
   phoneLabel: "(11) 99337-3710",
 
   address: {
-    // Por segurança, só a rua. Número e sala são passados no WhatsApp ao agendar a visita.
-    street: "Av. Hilário Pereira de Souza",
+    street: "Av. Hilário Pereira de Souza, 406",
     district: "Centro",
     city: "Osasco",
     state: "SP",
     label: "Osasco - Centro",
+  },
+
+  google: {
+    // Ficha da loja no Google: rota/mapa e página para deixar avaliação
+    mapsUrl: "https://share.google/P3xU5cRwPsdguaXAb",
+    reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJPVxvrPT_zpQRUQBMScAWnO8",
+    // Mapa embutido (sem chave de API): busca pelo endereço
+    embedUrl:
+      "https://maps.google.com/maps?q=" +
+      encodeURIComponent("Av. Hilário Pereira de Souza, 406 - Centro, Osasco - SP") +
+      "&z=16&output=embed",
   },
 
   hours: {

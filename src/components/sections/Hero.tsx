@@ -11,6 +11,7 @@ import { formatBRL } from "@/lib/format";
 import { productMessage } from "@/lib/whatsapp";
 import { LeadLink } from "../ui/LeadLink";
 import { InstagramIcon, WhatsAppIcon } from "../ui/icons";
+import { Logo } from "../ui/Monogram";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -39,22 +40,25 @@ export function Hero() {
       />
 
       {/* Mobile: título → foto → botões. Desktop: texto à esquerda, aparelho grande à direita. */}
-      <div className="wrap relative grid min-h-[calc(100svh-48px)] gap-x-8 gap-y-6 py-12 md:grid-cols-[0.82fr_1.18fr] md:grid-rows-2 md:gap-y-0 md:py-16">
+      <div className="wrap relative grid min-h-[calc(100svh-56px)] gap-x-8 gap-y-6 py-10 md:grid-cols-[0.82fr_1.18fr] md:grid-rows-2 md:gap-y-0 md:py-16">
         <div className="relative z-10 order-1 text-center md:self-end md:text-left">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease }}
-            className="t-eyebrow"
+          {/* Logo oficial: grande e centralizada no celular, discreta acima do título no desktop */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease }}
           >
-            Aqui é sempre um bom negócio
-          </motion.p>
+            <Logo
+              priority
+              className="mx-auto w-[min(72vw,280px)] drop-shadow-[0_8px_30px_rgba(212,176,106,0.25)] md:mx-0 md:w-[190px]"
+            />
+          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.1, ease }}
-            className="t-hero mt-4"
+            className="t-hero mt-8 md:mt-7"
           >
             iPhone 18 Pro Max.
             <br />

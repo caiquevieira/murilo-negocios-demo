@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CalendarClock, MapPin, MessageCircle, Store } from "lucide-react";
+import { CalendarClock, MapPin, MessageCircle, Navigation, Store } from "lucide-react";
 import { site } from "@/config/site";
 import { visitMessage } from "@/lib/whatsapp";
 import { StoreStatus } from "../StoreStatus";
@@ -10,10 +10,10 @@ import { InstagramIcon, WhatsAppIcon } from "../ui/icons";
 const steps = [
   { icon: MessageCircle, title: "Chame no WhatsApp", text: "Diga qual iPhone quer ver ou trocar." },
   { icon: CalendarClock, title: "Combine o horário", text: "Separamos o aparelho para você." },
-  { icon: Store, title: "Venha à loja", text: "Endereço completo enviado ao agendar." },
+  { icon: Store, title: "Venha à loja", text: `${site.address.street}, ${site.address.district}.` },
 ];
 
-/** Visita à loja: sempre com horário marcado pelo WhatsApp. Sem número nem sala no site, por segurança. */
+/** Visita à loja: sempre com horário marcado pelo WhatsApp. Mapa ligado à ficha da loja no Google. */
 export function StoreSection({ withPhotos = false }: { withPhotos?: boolean }) {
   return (
     <section id="loja" className="bg-mist py-20 md:py-28">
@@ -46,7 +46,9 @@ export function StoreSection({ withPhotos = false }: { withPhotos?: boolean }) {
             <div className="mt-8 space-y-2 border-t border-line pt-6 text-[15px]">
               <p className="flex items-center gap-2">
                 <MapPin size={17} className="shrink-0 text-gold-700" />
-                {site.address.street} · {site.address.district}, {site.address.city} - {site.address.state}
+                <LeadLink channel="mapa" source="localizacao-endereco" className="underline-offset-2 hover:underline">
+                  {site.address.street} · {site.address.district}, {site.address.city} - {site.address.state}
+                </LeadLink>
               </p>
               <p className="flex items-center gap-2">
                 <CalendarClock size={17} className="shrink-0 text-gold-700" />
@@ -65,17 +67,25 @@ export function StoreSection({ withPhotos = false }: { withPhotos?: boolean }) {
             </div>
           </Reveal>
 
-          <Reveal delay={0.1} className="relative min-h-[380px] overflow-hidden rounded-[var(--radius-tile)]">
-            <Image
-              src="/store/parede-logo.jpg"
-              alt="Letreiro dourado Murilo Negócios na parede de mármore da loja"
-              fill
-              sizes="(min-width: 768px) 500px, 100vw"
-              className="object-cover"
+          <Reveal delay={0.1} className="flex min-h-[420px] flex-col overflow-hidden rounded-[var(--radius-tile)] bg-white">
+            <iframe
+              title={`Mapa: ${site.address.street}, ${site.address.city}`}
+              src={site.google.embedUrl}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="min-h-[320px] w-full flex-1 border-0 grayscale-[0.35]"
             />
-            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-[15px] font-medium text-white">
-              {site.slogan}.
-            </span>
+            <div className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="leading-tight">
+                <p className="font-semibold">{site.legalName}</p>
+                <p className="text-[14px] text-ink-soft">
+                  {site.address.street} · {site.address.district}, {site.address.city}
+                </p>
+              </div>
+              <LeadLink channel="mapa" source="localizacao-mapa" className="btn btn-dark btn-sm shrink-0">
+                <Navigation size={16} /> Abrir no Google Maps
+              </LeadLink>
+            </div>
           </Reveal>
         </div>
 

@@ -1,6 +1,6 @@
 // Camada única de medição de conversão, no padrão Underline (_docs/padrao-whatsapp.md):
 // data-track = canal, data-origem = de onde veio o clique.
-export type TrackChannel = "whatsapp" | "instagram";
+export type TrackChannel = "whatsapp" | "instagram" | "avaliacao" | "mapa";
 
 type TrackEvent = {
   channel: TrackChannel;
@@ -29,7 +29,7 @@ export function track({ channel, origem, product, value }: TrackEvent) {
     window.gtag?.("event", "generate_lead", { method: "whatsapp", origem, item_name: product, value, currency });
     window.fbq?.("track", "Contact", { content_name: product ?? origem, value, currency });
   } else {
-    window.gtag?.("event", "click_instagram", { origem });
+    window.gtag?.("event", `click_${channel}`, { origem });
   }
 
   if (process.env.NODE_ENV !== "production") {

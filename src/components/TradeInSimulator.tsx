@@ -2,11 +2,11 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, Repeat2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { products } from "@/data/products";
-import { batteryOptions, conditions, estimateTradeIn, tradeInModels } from "@/data/tradein";
+import { batteryOptions, conditions, estimateTradeIn, OTHER_MODEL, tradeInModels } from "@/data/tradein";
 import { formatBRL } from "@/lib/format";
-import { tradeInMessage } from "@/lib/whatsapp";
+import { otherModelTradeInMessage, tradeInMessage } from "@/lib/whatsapp";
 import { LeadLink } from "./ui/LeadLink";
 import { WhatsAppIcon } from "./ui/icons";
 
@@ -50,13 +50,20 @@ export function TradeInSimulator() {
   const [defect, setDefect] = useState<boolean | null>(null);
   const [target, setTarget] = useState<string>("");
 
-  const m = tradeInModels.find((t) => t.name === model);
+  // Vindo do comparador (/troca?modelo=iphone-xr), o modelo já chega selecionado
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("modelo");
+    if (id && tradeInModels.some((t) => t.id === id)) setModel(id);
+  }, []);
+
+  const m = tradeInModels.find((t) => t.id === model);
+  const isOther = model === OTHER_MODEL;
   const b = batteryOptions.find((o) => o.id === battery);
   const c = conditions.find((o) => o.id === condition);
   const ready = m && capacity && b && c && opened !== null && defect !== null;
 
   const estimate = useMemo(
-    () => (ready ? estimateTradeIn(m.base, capacity, c.factor, b.factor, opened!, defect!) : null),
+    () => (ready ? estimateTradeIn(m.base, m.capacities, capacity, c.factor, b.factor, opened!, defect!) : null),
     [ready, m, capacity, c, b, opened, defect],
   );
   const targetProduct = targets.find((p) => p.id === target);
@@ -99,9 +106,29 @@ export function TradeInSimulator() {
             >
               <option value="">Selecione o modelo</option>
               {tradeInModels.map((t) => (
-                <option key={t.name}>{t.name}</option>
+                <option key={t.id} value={t.id}>
+                  {t.name}
+                </option>
               ))}
+              <option value={OTHER_MODEL}>Outro modelo</option>
             </select>
+
+            {isOther && (
+              <div className="mt-6 rounded-2xl bg-mist p-5">
+                <p className="text-[15px] font-medium">Sem problema, a gente avalia pelo WhatsApp.</p>
+                <p className="mt-1 text-[14px] text-ink-soft">
+                  Mande o modelo, a capacidade e fotos do aparelho que a equipe responde com o valor de entrada.
+                </p>
+                <LeadLink
+                  channel="whatsapp"
+                  source="troca-outro-modelo"
+                  message={otherModelTradeInMessage()}
+                  className="btn btn-whatsapp mt-4 w-full"
+                >
+                  <WhatsAppIcon /> Pedir avaliação no WhatsApp
+                </LeadLink>
+              </div>
+            )}
 
             {m && (
               <div className="mt-6">
@@ -116,9 +143,11 @@ export function TradeInSimulator() {
               </div>
             )}
 
-            <button type="button" disabled={!m || !capacity} onClick={() => setStep(1)} className="btn btn-dark mt-8 w-full disabled:opacity-30">
-              Continuar
-            </button>
+            {!isOther && (
+              <button type="button" disabled={!m || !capacity} onClick={() => setStep(1)} className="btn btn-dark mt-8 w-full disabled:opacity-30">
+                Continuar
+              </button>
+            )}
           </motion.div>
         )}
 
@@ -163,7 +192,7 @@ export function TradeInSimulator() {
         {step === 2 && estimate && (
           <motion.div key="s2" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
             <p className="text-[15px] text-ink-soft">
-              {model} {capacity} · estimativa de entrada
+              {m!.name} {capacity} · estimativa de entrada
             </p>
             <p className="mt-2 font-[family-name:var(--font-display)] text-[clamp(30px,5vw,44px)] font-semibold tracking-tight">
               <span className="gold-text">
@@ -200,9 +229,9 @@ export function TradeInSimulator() {
             <LeadLink
               channel="whatsapp"
               source="troca"
-              product={model}
+              product={m!.name}
               message={tradeInMessage({
-                model,
+                model: m!.name,
                 capacity,
                 condition: c!.label,
                 battery: b!.label,

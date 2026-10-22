@@ -7,7 +7,7 @@ import { InstagramIcon, WhatsAppIcon } from "../ui/icons";
 export function ClosingCta({ source = "cta-final" }: { source?: string }) {
   return (
     <section className="dark relative overflow-hidden bg-night-soft py-24 text-white md:py-32">
-      <Monogram className="pointer-events-none absolute -right-24 -bottom-24 h-[420px] w-[420px] opacity-[0.07]" />
+      <Monogram className="pointer-events-none absolute -right-24 -bottom-24 h-[420px] opacity-[0.08]" />
       <div className="wrap relative text-center">
         <Reveal>
           <p className="t-eyebrow">Fale com a gente</p>

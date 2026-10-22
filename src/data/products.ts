@@ -23,6 +23,8 @@ export type Product = {
   colors: ProductColor[];
   /** Apenas seminovos: saúde da bateria em % */
   battery?: number;
+  /** Modelo correspondente no comparador (src/data/iphones.ts) */
+  modelId: string;
 };
 
 export const categories: { id: Category | "todos"; label: string }[] = [
@@ -57,30 +59,30 @@ const pro18: ProductColor[] = [
 // As cores são referência visual; a disponibilidade de cada uma é confirmada no WhatsApp.
 export const products: Product[] = [
   {
-    id: "iphone-18-pro-max", name: "iPhone 18 Pro Max", category: "lancamentos", condition: "lacrado", badge: "Lançamento",
+    id: "iphone-18-pro-max", modelId: "iphone-18-pro-max", name: "iPhone 18 Pro Max", category: "lancamentos", condition: "lacrado", badge: "Lançamento",
     tagline: "O maior. O mais Pro.", image: "/produtos/iphone-18-pro-max-linha.webp",
     colors: pro18.map((c) => (c.name === "Vinho-escuro" ? { ...c, image: "/produtos/iphone-18-pro-max-vinho-escuro.webp" } : c)),
     storages: [{ capacity: "256GB", priceFrom: 14999, price: 10899 }],
   },
   {
-    id: "iphone-18-pro", name: "iPhone 18 Pro", category: "lancamentos", condition: "lacrado", badge: "Lançamento",
+    id: "iphone-18-pro", modelId: "iphone-18-pro", name: "iPhone 18 Pro", category: "lancamentos", condition: "lacrado", badge: "Lançamento",
     tagline: "Todo o Pro na palma da mão.", image: "/produtos/iphone-18-pro-linha-escuro.webp", imageOnDark: true,
     colors: pro18.map((c) => (c.name === "Prateado" ? { ...c, image: "/produtos/iphone-18-pro-prateado.webp" } : c)),
     storages: [{ capacity: "256GB", priceFrom: 14000, price: 8599 }],
   },
   {
-    id: "iphone-17-pro-max", name: "iPhone 17 Pro Max", category: "linha-17", condition: "lacrado", badge: "Reposição",
+    id: "iphone-17-pro-max", modelId: "iphone-17-pro-max", name: "iPhone 17 Pro Max", category: "linha-17", condition: "lacrado", badge: "Reposição",
     tagline: "Tela enorme. Bateria de sobra.", image: "/produtos/iphone-17-pro-max-linha.webp", colors: pro17.map((c) => (c.name === "Laranja-cósmico" ? { ...c, image: "/produtos/iphone-17-pro-max-laranja-cosmico.webp" } : c)),
     storages: [{ capacity: "256GB", priceFrom: 8000, price: 7699 }],
   },
   {
-    id: "iphone-17-pro", name: "iPhone 17 Pro", category: "linha-17", condition: "lacrado", badge: "Reposição",
+    id: "iphone-17-pro", modelId: "iphone-17-pro", name: "iPhone 17 Pro", category: "linha-17", condition: "lacrado", badge: "Reposição",
     tagline: "Pro de verdade, tamanho certo.", image: "/produtos/iphone-17-pro-linha-escuro.webp", imageOnDark: true,
     colors: pro17.map((c) => (c.name === "Azul-profundo" ? { ...c, image: "/produtos/iphone-17-pro-azul-profundo.webp" } : c)),
     storages: [{ capacity: "256GB", priceFrom: 7599, price: 7299 }],
   },
   {
-    id: "iphone-17-air", name: "iPhone 17 Air", category: "linha-17", condition: "lacrado",
+    id: "iphone-17-air", modelId: "iphone-air", name: "iPhone 17 Air", category: "linha-17", condition: "lacrado",
     tagline: "Fino de um jeito que impressiona.", image: "/produtos/iphone-17-air-linha.webp",
     colors: [
       { name: "Azul-céu", hex: "#c7d8ea" },
@@ -91,7 +93,7 @@ export const products: Product[] = [
     storages: [{ capacity: "256GB", priceFrom: 6599, price: 5999 }],
   },
   {
-    id: "iphone-17", name: "iPhone 17", category: "linha-17", condition: "lacrado", badge: "1 ano de garantia",
+    id: "iphone-17", modelId: "iphone-17", name: "iPhone 17", category: "linha-17", condition: "lacrado", badge: "1 ano de garantia",
     tagline: "O essencial, muito bem feito.", image: "/produtos/iphone-17-linha.webp",
     colors: [
       { name: "Lavanda", hex: "#c9c0e0", image: "/produtos/iphone-17-lavanda.webp" },
@@ -103,18 +105,18 @@ export const products: Product[] = [
     storages: [{ capacity: "256GB", priceFrom: 5999, price: 5599 }],
   },
   {
-    id: "iphone-16-pro-max", name: "iPhone 16 Pro Max", category: "linha-16", condition: "lacrado",
+    id: "iphone-16-pro-max", modelId: "iphone-16-pro-max", name: "iPhone 16 Pro Max", category: "linha-16", condition: "lacrado",
     tagline: "Titânio e tela gigante.", image: "/produtos/iphone-16-pro-max-linha.webp",
     colors: proTitanium.map((c) => (c.name === "Titânio preto" ? { ...c, image: "/produtos/iphone-16-pro-max-titanio-preto.webp" } : c)),
     storages: [{ capacity: "256GB", priceFrom: 6999, price: 6499 }],
   },
   {
-    id: "iphone-16-pro", name: "iPhone 16 Pro", category: "linha-16", condition: "lacrado",
+    id: "iphone-16-pro", modelId: "iphone-16-pro", name: "iPhone 16 Pro", category: "linha-16", condition: "lacrado",
     tagline: "Câmera Pro. Preço de oportunidade.", image: "/produtos/iphone-16-pro-linha-escuro.webp", imageOnDark: true, colors: proTitanium.map((c) => (c.name === "Titânio-deserto" ? { ...c, image: "/produtos/iphone-16-pro-titanio-deserto.webp" } : c)),
     storages: [{ capacity: "128GB", priceFrom: 7100, price: 6099.99 }],
   },
   {
-    id: "iphone-16", name: "iPhone 16", category: "linha-16", condition: "lacrado",
+    id: "iphone-16", modelId: "iphone-16", name: "iPhone 16", category: "linha-16", condition: "lacrado",
     tagline: "Cores vivas para o dia a dia.", image: "/produtos/iphone-16-linha.webp",
     colors: [
       { name: "Ultramarino", hex: "#5b6fd4", image: "/produtos/iphone-16-ultramarino.webp" },
@@ -126,7 +128,7 @@ export const products: Product[] = [
     storages: [{ capacity: "256GB", priceFrom: 6200, price: 4999 }],
   },
   {
-    id: "iphone-16e", name: "iPhone 16E", category: "linha-16", condition: "lacrado",
+    id: "iphone-16e", modelId: "iphone-16e", name: "iPhone 16E", category: "linha-16", condition: "lacrado",
     tagline: "Seu primeiro iPhone começa aqui.", image: "/produtos/iphone-16e-linha.webp",
     colors: [
       { name: "Branco", hex: "#f0f0ee", image: "/produtos/iphone-16e-branco.webp" },
@@ -135,7 +137,7 @@ export const products: Product[] = [
     storages: [{ capacity: "128GB", priceFrom: 3999, price: 3499 }],
   },
   {
-    id: "iphone-15-pro-max-cpo", name: "iPhone 15 Pro Max", category: "anteriores", condition: "cpo", badge: "CPO",
+    id: "iphone-15-pro-max-cpo", modelId: "iphone-15-pro-max", name: "iPhone 15 Pro Max", category: "anteriores", condition: "cpo", badge: "CPO",
     tagline: "Recondicionado oficial, com garantia.", image: "/produtos/iphone-15-pro-max-linha.webp",
     colors: [
       { name: "Titânio azul", hex: "#3f4a5a" },
@@ -146,7 +148,7 @@ export const products: Product[] = [
     storages: [{ capacity: "256GB", priceFrom: 6599, price: 5999 }],
   },
   {
-    id: "iphone-15", name: "iPhone 15", category: "anteriores", condition: "lacrado",
+    id: "iphone-15", modelId: "iphone-15", name: "iPhone 15", category: "anteriores", condition: "lacrado",
     tagline: "USB-C e câmera de 48 MP.", image: "/produtos/iphone-15-linha.webp",
     colors: [
       { name: "Rosa", hex: "#f1d3d6", image: "/produtos/iphone-15-rosa.webp" },
@@ -158,7 +160,7 @@ export const products: Product[] = [
     storages: [{ capacity: "128GB", priceFrom: 5100, price: 4199 }],
   },
   {
-    id: "iphone-14-pro-max", name: "iPhone 14 Pro Max", category: "anteriores", condition: "lacrado",
+    id: "iphone-14-pro-max", modelId: "iphone-14-pro-max", name: "iPhone 14 Pro Max", category: "anteriores", condition: "lacrado",
     tagline: "Clássico Pro, ainda muito atual.", image: "/produtos/iphone-14-pro-max-linha.webp",
     colors: [
       { name: "Roxo-profundo", hex: "#594d61", image: "/produtos/iphone-14-pro-max-roxo-profundo.webp" },
@@ -169,7 +171,7 @@ export const products: Product[] = [
     storages: [{ capacity: "128GB", priceFrom: 4999, price: 4599 }],
   },
   {
-    id: "iphone-13-pro-cpo", name: "iPhone 13 Pro", category: "anteriores", condition: "cpo", badge: "CPO",
+    id: "iphone-13-pro-cpo", modelId: "iphone-13-pro", name: "iPhone 13 Pro", category: "anteriores", condition: "cpo", badge: "CPO",
     tagline: "Tela ProMotion pelo melhor preço.", image: "/produtos/iphone-13-pro-linha.webp",
     colors: [
       { name: "Azul-sierra", hex: "#a6c0d8" },
@@ -183,25 +185,25 @@ export const products: Product[] = [
 
   // Seminovos: EXEMPLOS de estoque rotativo (modelos, preços e bateria). Substitua pelos aparelhos reais.
   {
-    id: "seminovo-15-pro-max", name: "iPhone 15 Pro Max", category: "seminovos", condition: "seminovo", battery: 91,
+    id: "seminovo-15-pro-max", modelId: "iphone-15-pro-max", name: "iPhone 15 Pro Max", category: "seminovos", condition: "seminovo", battery: 91,
     tagline: "Revisado, com procedência.",
     colors: [{ name: "Titânio natural", hex: "#bab5ab", image: "/produtos/iphone-15-pro-max-titanio-natural.webp" }],
     storages: [{ capacity: "256GB", price: 4899 }],
   },
   {
-    id: "seminovo-14-pro-max", name: "iPhone 14 Pro Max", category: "seminovos", condition: "seminovo", battery: 88,
+    id: "seminovo-14-pro-max", modelId: "iphone-14-pro-max", name: "iPhone 14 Pro Max", category: "seminovos", condition: "seminovo", battery: 88,
     tagline: "Revisado, com procedência.",
     colors: [{ name: "Roxo-profundo", hex: "#594d61", image: "/produtos/iphone-14-pro-max-roxo-profundo.webp" }],
     storages: [{ capacity: "128GB", price: 3699 }],
   },
   {
-    id: "seminovo-13-pro", name: "iPhone 13 Pro", category: "seminovos", condition: "seminovo", battery: 86,
+    id: "seminovo-13-pro", modelId: "iphone-13-pro", name: "iPhone 13 Pro", category: "seminovos", condition: "seminovo", battery: 86,
     tagline: "Revisado, com procedência.",
     colors: [{ name: "Dourado", hex: "#f2e2c5", image: "/produtos/iphone-13-pro-dourado.webp" }],
     storages: [{ capacity: "128GB", price: 2899 }],
   },
   {
-    id: "seminovo-13", name: "iPhone 13", category: "seminovos", condition: "seminovo", battery: 85,
+    id: "seminovo-13", modelId: "iphone-13", name: "iPhone 13", category: "seminovos", condition: "seminovo", battery: 85,
     tagline: "Revisado, com procedência.",
     colors: [{ name: "Meia-noite", hex: "#2e3238", image: "/produtos/iphone-13-meia-noite.webp" }],
     storages: [{ capacity: "128GB", price: 2399 }],

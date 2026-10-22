@@ -21,11 +21,19 @@ type Props = {
 const defaultLabel: Record<TrackChannel, string> = {
   whatsapp: "Conversar no WhatsApp",
   instagram: "Abrir o Instagram @murilonegocioss",
+  avaliacao: "Avaliar a Murilo Negócios no Google",
+  mapa: "Abrir a loja no Google Maps",
+};
+
+const staticHref: Record<Exclude<TrackChannel, "whatsapp">, string> = {
+  instagram: site.instagram.url,
+  avaliacao: site.google.reviewUrl,
+  mapa: site.google.mapsUrl,
 };
 
 /** Link de conversão: href estático (funciona sem JS) + evento de tracking no clique. */
 export function LeadLink({ channel, source, message, product, value, className, children, ariaLabel }: Props) {
-  const href = channel === "whatsapp" ? buildWhatsAppLink(message ?? genericMessage()) : site.instagram.url;
+  const href = channel === "whatsapp" ? buildWhatsAppLink(message ?? genericMessage()) : staticHref[channel];
 
   return (
     <a

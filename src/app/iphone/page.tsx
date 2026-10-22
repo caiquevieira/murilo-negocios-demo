@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/sections/PageHeader";
 
 export const metadata: Metadata = {
   title: "iPhones lacrados em Osasco",
-  description: "iPhone 18, 17, 16 e anteriores, lacrados e CPO, com preço à vista. Consulte o estoque da loja de Osasco pelo WhatsApp.",
+  description: "iPhone 18, 17, 16 e anteriores, lacrados e CPO, com preço à vista. À pronta entrega na loja de Osasco.",
 };
 
 export default function IphonePage() {
@@ -15,15 +15,15 @@ export default function IphonePage() {
       <PageHeader
         eyebrow="Vitrine"
         title="Todos os iPhones."
-        sub="Escolha modelo, cor e capacidade. A gente confirma o estoque na hora pelo WhatsApp."
+        sub="Todos à pronta entrega. Escolha modelo, cor e capacidade e reserve pelo WhatsApp."
       />
       <section className="bg-mist pb-24">
         <div className="wrap">
           <Showcase />
           <p className="mt-12 text-center text-[15px] text-ink-soft">
-            Não encontrou o modelo, a cor ou a capacidade?{" "}
-            <Link href="/encomenda" className="link-more">
-              A gente encomenda ›
+            Todos os modelos da vitrine estão à pronta entrega.{" "}
+            <Link href="/comparar" className="link-more">
+              Compare com o seu iPhone ›
             </Link>
           </p>
         </div>
