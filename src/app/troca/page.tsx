@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { TradeInSimulator } from "@/components/TradeInSimulator";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 
-export const metadata: Metadata = {
-  title: "Troca de iPhone usado em Osasco",
-  description: "Simule quanto seu iPhone usado vale de entrada na compra de um novo. Avaliação final na loja do Centro de Osasco.",
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/troca/",
+  title: "Troca de iPhone usado em Osasco: simule o valor",
+  description:
+    "Simule quanto o seu iPhone usado vale de entrada na compra de um novo, do iPhone XR ao 18 Pro Max. Avaliação final na loja do Centro de Osasco.",
+});
 
 const steps = [
   { n: "1", title: "Simule aqui", text: "Responda 4 perguntas sobre o seu iPhone." },
@@ -30,7 +33,7 @@ export default function TrocaPage() {
             <ol className="space-y-6">
               {steps.map((s) => (
                 <li key={s.n} className="flex gap-4">
-                  <span className="gold-fill grid h-10 w-10 shrink-0 place-items-center rounded-full font-[family-name:var(--font-serif)] font-bold">
+                  <span className="gold-fill grid h-10 w-10 shrink-0 place-items-center rounded-full text-[17px] font-semibold">
                     {s.n}
                   </span>
                   <div>

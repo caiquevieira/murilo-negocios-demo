@@ -2,7 +2,8 @@
 
 /*
   Design tokens. Ritmo e proporções inspirados em grandes vitrines de tecnologia,
-  com a identidade da Murilo Negócios: dourado espelhado, serifa clássica e mármore.
+  com a identidade da Murilo Negócios: dourado espelhado e mármore. Uma família só (SF/Inter);
+  a serifa fica restrita à logo.
 */
 :root {
   --ink: #1d1d1f;
@@ -44,7 +45,6 @@
   --color-whatsapp: var(--whatsapp);
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
-  --font-serif: var(--font-cinzel), "Trajan Pro", Georgia, serif;
 }
 
 html {
@@ -118,10 +118,10 @@ body {
     color: var(--ink-soft);
   }
   .t-eyebrow {
-    font-family: var(--font-serif);
-    font-size: 13px;
+    font-family: var(--font-sans);
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--gold-700);
   }

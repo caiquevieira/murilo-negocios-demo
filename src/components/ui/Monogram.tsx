@@ -34,7 +34,7 @@ export function Wordmark({ className = "", onDark = false }: { className?: strin
       <Monogram className="h-9 shrink-0" />
       <span className="flex flex-col leading-none">
         <span
-          className={`font-[family-name:var(--font-serif)] text-[15px] font-semibold tracking-[0.14em] ${onDark ? "text-white" : "text-ink"}`}
+          className={`text-[15px] font-semibold tracking-[0.08em] ${onDark ? "text-white" : "text-ink"}`}
         >
           MURILO <span className="gold-text">NEGÓCIOS</span>
         </span>

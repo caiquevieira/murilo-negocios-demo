@@ -35,7 +35,7 @@ export function GlobalNav() {
         <div className="wrap flex h-14 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2.5" aria-label="Murilo Negócios, início">
             <Monogram priority className="h-10 md:h-9" />
-            <span className="font-[family-name:var(--font-serif)] text-[13px] leading-none font-semibold tracking-[0.14em] md:text-[13px]">
+            <span className="text-[13px] leading-none font-semibold tracking-[0.08em]">
               MURILO <span className="gold-text">NEGÓCIOS</span>
             </span>
           </Link>

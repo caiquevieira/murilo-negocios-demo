@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Showcase } from "@/components/Showcase";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { PageHeader } from "@/components/sections/PageHeader";
 
-export const metadata: Metadata = {
-  title: "iPhones lacrados em Osasco",
-  description: "iPhone 18, 17, 16 e anteriores, lacrados e CPO, com preço à vista. À pronta entrega na loja de Osasco.",
-};
+export const metadata: Metadata = pageMetadata({
+  path: "/iphone/",
+  title: "iPhone lacrado em Osasco à pronta entrega",
+  description:
+    "iPhone 18, 17, 16 e anteriores, lacrados e CPO, à pronta entrega na loja física do Centro de Osasco. Preço à vista e reserva pelo WhatsApp.",
+});
 
 export default function IphonePage() {
   return (

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { StoreStatus } from "@/components/StoreStatus";
 import { ClosingCta } from "@/components/sections/ClosingCta";
+import { Faq } from "@/components/sections/Faq";
 import { GoogleReview } from "@/components/sections/GoogleReview";
 import { InstagramBlock } from "@/components/sections/InstagramBlock";
 import { PageHeader } from "@/components/sections/PageHeader";
@@ -10,11 +12,12 @@ import { LeadLink } from "@/components/ui/LeadLink";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { visitMessage } from "@/lib/whatsapp";
 
-export const metadata: Metadata = {
-  title: "Loja física no Centro de Osasco",
+export const metadata: Metadata = pageMetadata({
+  path: "/loja/",
+  title: "Loja de iPhone no Centro de Osasco",
   description:
-    "Loja física na Av. Hilário Pereira de Souza, 406, Centro de Osasco. Segunda a domingo, 09h às 20h, com visita agendada pelo WhatsApp.",
-};
+    "Loja física de iPhone na Av. Hilário Pereira de Souza, 406, Centro de Osasco - SP. Aberta de segunda a domingo, das 09h às 20h, com visita agendada pelo WhatsApp.",
+});
 
 export default function LojaPage() {
   return (
@@ -41,6 +44,7 @@ export default function LojaPage() {
       <StoreSection withPhotos />
       <TeamSection />
       <GoogleReview source="loja-avaliacao" />
+      <Faq withSchema={false} />
       <InstagramBlock source="loja-instagram" />
       <ClosingCta source="loja-final" />
     </>

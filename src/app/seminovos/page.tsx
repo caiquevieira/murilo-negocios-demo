@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Showcase } from "@/components/Showcase";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { InstagramBlock } from "@/components/sections/InstagramBlock";
@@ -8,11 +9,12 @@ import { LeadLink } from "@/components/ui/LeadLink";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { seminovosMessage } from "@/lib/whatsapp";
 
-export const metadata: Metadata = {
-  title: "iPhones seminovos revisados em Osasco",
+export const metadata: Metadata = pageMetadata({
+  path: "/seminovos/",
+  title: "iPhone seminovo revisado em Osasco",
   description:
-    "Seminovos com bateria informada em %, IMEI limpo e testes completos. Estoque rotativo na loja do Centro de Osasco.",
-};
+    "iPhone seminovo com bateria informada em %, IMEI limpo e testes completos, na loja física do Centro de Osasco. Peça a lista do dia pelo WhatsApp.",
+});
 
 export default function SeminovosPage() {
   return (

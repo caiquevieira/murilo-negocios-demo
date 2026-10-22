@@ -4,6 +4,8 @@ import Link from "next/link";
 import { BadgeCheck, Columns2, MapPin, PackageCheck, Repeat2, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { conditionLabel, defaultColorIndex, type Product } from "@/data/products";
+import { productHref } from "@/lib/catalog";
+import { absoluteUrl } from "@/lib/seo";
 import { productMessage } from "@/lib/whatsapp";
 import { LeadLink } from "./ui/LeadLink";
 import { PriceTag } from "./ui/PriceTag";
@@ -29,8 +31,30 @@ export function ProductDetail({ product }: { product: Product }) {
         { icon: BadgeCheck, text: "Procedência confirmada" },
       ];
 
+  // Ficha de produto (Schema.org) com preço e disponibilidade da planilha
+  const photo = color.image ?? product.image;
+  const productLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `${product.name} ${conditionLabel[product.condition]}`,
+    brand: { "@type": "Brand", name: "Apple" },
+    description: product.tagline,
+    ...(photo && { image: /^https?:/.test(photo) ? photo : absoluteUrl(photo) }),
+    itemCondition: seminovo ? "https://schema.org/UsedCondition" : product.condition === "cpo" ? "https://schema.org/RefurbishedCondition" : "https://schema.org/NewCondition",
+    offers: product.storages.map((s) => ({
+      "@type": "Offer",
+      name: `${product.name} ${s.capacity}`,
+      price: s.price.toFixed(2),
+      priceCurrency: "BRL",
+      availability: "https://schema.org/InStock",
+      url: absoluteUrl(productHref(product)),
+      seller: { "@id": absoluteUrl("/#loja") },
+    })),
+  };
+
   return (
     <section className="bg-white py-12 md:py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }} />
       <div className="wrap grid items-start gap-10 md:grid-cols-2 md:gap-16">
         {/* Visual fixo enquanto a coluna de compra rola */}
         <div className="md:sticky md:top-20">

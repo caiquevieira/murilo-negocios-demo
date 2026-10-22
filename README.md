@@ -44,6 +44,14 @@ O catálogo e a tabela do simulador de troca vêm de uma planilha do Google. O s
 
 `/` home · `/iphone` vitrine com filtros · `/iphone/<id>` página de cada modelo · `/seminovos` · `/troca` (simulador; aceita `?modelo=<id>`) · `/comparar` (comparador; aceita `?de=<id>&para=<id>`) · `/loja`
 
+## SEO e GEO
+
+- Cada página tem título, descrição, URL canônica, Open Graph e Twitter Card (`src/lib/seo.ts`). Imagem de compartilhamento: `public/og/murilo-negocios.jpg` (1200x630).
+- Dados estruturados (Schema.org): `MobilePhoneStore` e `WebSite` em todas as páginas (`layout.tsx`), `FAQPage` na home, `BreadcrumbList` e `Product` (preço e estoque vivos da planilha) nas páginas de produto.
+- `sitemap.xml` e `robots.txt` gerados no build (`src/app/sitemap.ts`, `src/app/robots.ts`). Na demo, o robots bloqueia tudo.
+- GEO (buscadores de IA): `public/llms.txt` com o resumo factual da loja e perguntas frequentes com respostas diretas (`src/components/sections/Faq.tsx`). Ao mudar endereço, horário ou pagamento, atualize também o `llms.txt`.
+- O endereço público vem de `site.url` (ou `NEXT_PUBLIC_SITE_URL` no build). **Trocar `site.url` pelo domínio definitivo antes da entrega**, senão canônicas e sitemap apontam para o domínio provisório.
+
 ## Medição de conversão
 
 Todo link de WhatsApp e Instagram passa pelo `LeadLink` (`src/components/ui/LeadLink.tsx`), com `data-track` e `data-origem` no padrão `_docs/padrao-whatsapp.md`:

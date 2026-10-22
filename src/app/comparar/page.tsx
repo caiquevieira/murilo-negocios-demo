@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { IphoneCompare } from "@/components/IphoneCompare";
 import { ClosingCta } from "@/components/sections/ClosingCta";
 import { PageHeader } from "@/components/sections/PageHeader";
 
-export const metadata: Metadata = {
-  title: "Compare modelos de iPhone",
+export const metadata: Metadata = pageMetadata({
+  path: "/comparar/",
+  title: "Comparar iPhones: XR ao iPhone 18 Pro Max",
   description:
-    "Compare o iPhone que você tem com o que quer levar: tela, chip, câmeras, bateria e recursos, do iPhone XR ao iPhone 18 Pro Max.",
-};
+    "Compare o seu iPhone com o que quer comprar: tela, chip, câmeras, bateria e recursos, do iPhone XR ao iPhone 18 Pro Max e iPhone Duo, com dados oficiais da Apple.",
+});
 
 export default function CompararPage() {
   return (
