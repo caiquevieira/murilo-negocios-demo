@@ -1,0 +1,139 @@
+"use client";
+
+import Link from "next/link";
+import { BadgeCheck, MapPin, Repeat2, ShieldCheck } from "lucide-react";
+import { useState } from "react";
+import { conditionLabel, defaultColorIndex, type Product } from "@/data/products";
+import { productMessage } from "@/lib/whatsapp";
+import { LeadLink } from "./ui/LeadLink";
+import { PriceTag } from "./ui/PriceTag";
+import { ProductVisual } from "./ui/ProductVisual";
+import { ColorSwatches, SegmentedControl } from "./ui/Selectors";
+import { InstagramIcon, WhatsAppIcon } from "./ui/icons";
+
+export function ProductDetail({ product }: { product: Product }) {
+  const [colorIdx, setColorIdx] = useState(() => defaultColorIndex(product));
+  const [storage, setStorage] = useState(product.storages[0].capacity);
+  const color = product.colors[colorIdx];
+  const hasPhoto = Boolean(color.image ?? product.image);
+  const st = product.storages.find((s) => s.capacity === storage) ?? product.storages[0];
+  const seminovo = product.condition === "seminovo";
+
+  const perks = seminovo
+    ? [
+        { icon: BadgeCheck, text: `Bateria em ${product.battery}%, medida na loja` },
+        { icon: ShieldCheck, text: "IMEI limpo e testes completos" },
+      ]
+    : [
+        { icon: ShieldCheck, text: product.condition === "cpo" ? "Recondicionado oficial Apple, com garantia" : "Lacrado, até 1 ano de garantia Apple" },
+        { icon: BadgeCheck, text: "Procedência confirmada" },
+      ];
+
+  return (
+    <section className="bg-white py-12 md:py-20">
+      <div className="wrap grid items-start gap-10 md:grid-cols-2 md:gap-16">
+        {/* Visual fixo enquanto a coluna de compra rola */}
+        <div className="md:sticky md:top-20">
+          <div className="relative grid aspect-square place-items-center overflow-hidden rounded-[var(--radius-tile)] bg-mist">
+            <div
+              aria-hidden
+              className="absolute inset-0 opacity-60 transition-colors duration-700"
+              style={{ background: `radial-gradient(circle at 50% 45%, ${color.hex}55, transparent 60%)` }}
+            />
+            <ProductVisual
+              product={product}
+              color={color}
+              priority
+              sizes="(min-width: 768px) 520px, 100vw"
+              className={hasPhoto ? "h-[84%] w-[84%]" : "h-[72%] w-[72%]"}
+            />
+          </div>
+          <p className="mt-3 text-center text-[12px] text-ink-mute">
+            {color.image
+              ? `Foto: ${product.name} ${color.name}.`
+              : hasPhoto
+                ? `Foto da linha ${product.name} em todas as cores.`
+                : "Ilustração. Cores reais podem variar."}
+          </p>
+        </div>
+
+        <div>
+          <p className="t-eyebrow">{product.badge ?? conditionLabel[product.condition]}</p>
+          <h1 className="t-section mt-2">{product.name}</h1>
+          <p className="t-callout mt-2">{product.tagline}</p>
+
+          <div className="mt-8 border-t border-line pt-6">
+            <h2 className="text-[17px] font-semibold">
+              Cor. <span className="font-normal text-ink-soft">{color.name}</span>
+            </h2>
+            <div className="mt-4">
+              <ColorSwatches colors={product.colors} value={colorIdx} onChange={setColorIdx} />
+            </div>
+          </div>
+
+          <div className="mt-8 border-t border-line pt-6">
+            <h2 className="text-[17px] font-semibold">Capacidade.</h2>
+            <div className="mt-4">
+              {product.storages.length > 1 ? (
+                <SegmentedControl
+                  ariaLabel="Capacidade"
+                  options={product.storages.map((s) => ({ id: s.capacity, label: s.capacity }))}
+                  value={storage}
+                  onChange={setStorage}
+                />
+              ) : (
+                <span className="inline-block rounded-2xl border-2 border-gold-500 px-5 py-3 font-semibold">{st.capacity}</span>
+              )}
+              <p className="mt-3 text-[14px] text-ink-soft">
+                Precisa de outra capacidade?{" "}
+                <Link href="/encomenda" className="link-more">
+                  A gente encomenda ›
+                </Link>
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-[var(--radius-card)] bg-mist p-6">
+            <PriceTag price={st.price} priceFrom={st.priceFrom} size="lg" />
+            <ul className="mt-5 space-y-2 text-[15px]">
+              {perks.map(({ icon: Icon, text }) => (
+                <li key={text} className="flex items-center gap-2">
+                  <Icon size={18} className="text-gold-700" /> {text}
+                </li>
+              ))}
+              <li className="flex items-center gap-2">
+                <MapPin size={18} className="text-gold-700" /> Retirada com horário agendado em Osasco
+              </li>
+            </ul>
+
+            <LeadLink
+              channel="whatsapp"
+              source={`produto-${product.id}`}
+              product={`${product.name} ${st.capacity} ${color.name}`}
+              value={st.price}
+              message={productMessage({ name: product.name, capacity: st.capacity, color: color.name, price: st.price, seminovo })}
+              className="btn btn-whatsapp mt-6 w-full !min-h-[52px] !text-[17px]"
+            >
+              <WhatsAppIcon /> Consultar estoque em Osasco
+            </LeadLink>
+            <LeadLink channel="instagram" source={`produto-${product.id}`} className="btn btn-ghost mt-3 w-full">
+              <InstagramIcon /> Ver oferta do dia no Instagram
+            </LeadLink>
+          </div>
+
+          <Link
+            href="/troca"
+            className="mt-4 flex items-center gap-3 rounded-[var(--radius-card)] border border-line p-5 transition hover:border-gold-500"
+          >
+            <Repeat2 className="text-gold-700" />
+            <span className="flex-1">
+              <span className="block font-semibold">Tem um iPhone usado?</span>
+              <span className="text-[14px] text-ink-soft">Simule quanto ele vale de entrada.</span>
+            </span>
+            <span className="link-more">Simular ›</span>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}

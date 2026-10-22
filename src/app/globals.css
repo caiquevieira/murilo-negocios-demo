@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+/*
+  Design tokens. Ritmo e proporções inspirados em grandes vitrines de tecnologia,
+  com a identidade da Murilo Negócios: dourado espelhado, serifa clássica e mármore.
+*/
+:root {
+  --ink: #1d1d1f;
+  --ink-soft: #6e6e73;
+  --ink-mute: #86868b;
+  --paper: #ffffff;
+  --mist: #f5f5f7;
+  --night: #000000;
+  --night-soft: #161617;
+  --line: #d2d2d7;
+
+  --gold-50: #faf3e3;
+  --gold-200: #ecd9a8;
+  --gold-400: #d4b06a;
+  --gold-500: #c39a4c;
+  --gold-600: #a67c32;
+  --gold-700: #8a6420; /* texto dourado sobre fundo claro (contraste AA) */
+
+  --whatsapp: #1fa855;
+  --radius-tile: 28px;
+  --radius-card: 22px;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-mute: var(--ink-mute);
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-night: var(--night);
+  --color-night-soft: var(--night-soft);
+  --color-line: var(--line);
+  --color-gold-50: var(--gold-50);
+  --color-gold-200: var(--gold-200);
+  --color-gold-400: var(--gold-400);
+  --color-gold-500: var(--gold-500);
+  --color-gold-600: var(--gold-600);
+  --color-gold-700: var(--gold-700);
+  --color-whatsapp: var(--whatsapp);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-cinzel), "Trajan Pro", Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: 22px;
+  }
+  .wrap-wide {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 12px;
+  }
+
+  /* Tipografia */
+  .t-hero {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(40px, 6.2vw, 64px);
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+  }
+  .t-section {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(32px, 4.6vw, 48px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+  .t-tile {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1.1;
+  }
+  .t-sub {
+    font-family: var(--font-display);
+    font-size: clamp(21px, 2.4vw, 28px);
+    line-height: 1.16;
+    letter-spacing: 0.007em;
+  }
+  .t-callout {
+    font-family: var(--font-display);
+    font-size: 19px;
+    line-height: 1.21;
+    letter-spacing: 0.012em;
+    color: var(--ink-soft);
+  }
+  .t-eyebrow {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-700);
+  }
+  .dark .t-eyebrow,
+  .t-eyebrow.on-dark {
+    color: var(--gold-400);
+  }
+
+  /* Dourado espelhado, como o letreiro da loja */
+  .gold-text {
+    background: linear-gradient(100deg, #8a6420 0%, #d9b871 28%, #f6e3ad 45%, #c39a4c 62%, #8a6420 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .gold-fill {
+    background: linear-gradient(115deg, #b98c3e 0%, #e9cd88 38%, #f7e7b8 52%, #d2ad5e 70%, #a67c32 100%);
+  }
+  .gold-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+  }
+
+  /* Textura de mármore claro (parede da loja), feita só com gradientes */
+  .marble {
+    background-color: #eeeef0;
+    background-image:
+      radial-gradient(120% 80% at 10% 10%, rgba(255, 255, 255, 0.9), transparent 55%),
+      radial-gradient(90% 70% at 85% 30%, rgba(214, 214, 220, 0.8), transparent 60%),
+      radial-gradient(70% 60% at 40% 90%, rgba(255, 255, 255, 0.7), transparent 60%),
+      linear-gradient(160deg, #f4f4f6 0%, #e4e4e8 50%, #f2f2f4 100%);
+  }
+
+  /* Botões em pílula */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 11px 22px;
+    border-radius: 980px;
+    font-size: 17px;
+    line-height: 1.18;
+    letter-spacing: -0.022em;
+    font-weight: 500;
+    white-space: nowrap;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease,
+      color 0.2s ease;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--gold-500);
+    outline-offset: 3px;
+  }
+  .btn-whatsapp {
+    background: var(--whatsapp);
+    color: #fff;
+  }
+  .btn-whatsapp:hover {
+    background: #19924a;
+    box-shadow: 0 8px 24px -8px rgba(31, 168, 85, 0.6);
+  }
+  .btn-gold {
+    color: #1d1d1f;
+  }
+  .btn-gold:hover {
+    box-shadow: 0 8px 28px -10px rgba(195, 154, 76, 0.8);
+  }
+  .btn-dark {
+    background: var(--ink);
+    color: #fff;
+  }
+  .btn-dark:hover {
+    background: #000;
+  }
+  .btn-ghost {
+    border: 1px solid currentColor;
+    color: var(--ink);
+  }
+  .btn-ghost:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+  .dark .btn-ghost,
+  .btn-ghost.on-dark {
+    color: #f5f5f7;
+  }
+  .dark .btn-ghost:hover,
+  .btn-ghost.on-dark:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .btn-instagram {
+    color: #fff;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  }
+  .btn-instagram:hover {
+    box-shadow: 0 8px 24px -8px rgba(220, 39, 67, 0.6);
+  }
+  .btn-sm {
+    min-height: 36px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .link-more {
+    color: var(--gold-700);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .link-more:hover {
+    text-decoration: underline;
+  }
+  .dark .link-more {
+    color: var(--gold-400);
+  }
+
+  .tile {
+    border-radius: var(--radius-tile);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .input {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: #fff;
+    padding: 12px 16px;
+    font-size: 17px;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--gold-500);
+    box-shadow: 0 0 0 4px rgba(195, 154, 76, 0.18);
+  }
+}
