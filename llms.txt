@@ -1,0 +1,31 @@
+# Murilo Negócios (TechShop)
+
+> Loja física de iPhone no Centro de Osasco - SP. Vende iPhone novo lacrado, iPhone CPO (recondicionado oficial Apple) e iPhone seminovo revisado, aceita o iPhone usado do cliente como parte do pagamento e atende pelo WhatsApp em todo o Brasil. Slogan: "Aqui é sempre um bom negócio".
+
+## Dados da loja
+
+- Endereço: Av. Hilário Pereira de Souza, 406, Centro, Osasco - SP, Brasil
+- Horário: segunda a domingo, das 09:00 às 20:00. Visitas somente com horário agendado pelo WhatsApp.
+- WhatsApp: (11) 99337-3710 (https://wa.me/5511993373710)
+- Instagram: @murilonegocioss (https://www.instagram.com/murilonegocioss/), onde saem as ofertas do dia
+- E-mail: techshopfyonline@gmail.com
+- Google Maps: https://share.google/P3xU5cRwPsdguaXAb
+- Pagamento: Pix, cartão ou o aparelho atual como parte do pagamento. Não trabalha com boleto.
+- Revendedora independente, sem afiliação com a Apple Inc.
+
+## O que a loja oferece
+
+- iPhone lacrado: novos, com até 1 ano de garantia Apple, à pronta entrega.
+- iPhone CPO: recondicionado oficial Apple, com garantia.
+- iPhone seminovo: revisado, com saúde da bateria informada em porcentagem, IMEI limpo e testes completos. Estoque muda todo dia.
+- Troca: o iPhone usado do cliente vale como entrada. O simulador do site estima o valor de qualquer iPhone do XR ao iPhone 18 Pro Max e iPhone Duo; o valor final sai na avaliação presencial.
+- Comparador: compara lado a lado dois modelos de iPhone (do XR ao 18 Pro Max), com especificações oficiais da Apple.
+
+## Páginas
+
+- [Início](/): destaques, vitrine, loja e perguntas frequentes
+- [iPhones](/iphone/): vitrine com todos os iPhones à pronta entrega e preços à vista
+- [Seminovos](/seminovos/): iPhones seminovos revisados
+- [Troca](/troca/): simulador do valor do iPhone usado como entrada
+- [Comparar](/comparar/): comparador de modelos de iPhone
+- [Loja](/loja/): endereço, mapa, horário e como agendar a visita
